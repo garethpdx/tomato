@@ -19,7 +19,7 @@
   )
 
 (defn wait[]
-  (def tomato (plus (now) (seconds 5)) )
+  (def tomato (plus (now) (minutes 25)) )
   (while (tomato? tomato)
     (do (Thread/sleep 1000)))
   (pom-done)
