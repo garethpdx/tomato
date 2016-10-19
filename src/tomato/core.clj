@@ -2,12 +2,10 @@
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
-(use 'clj-time.core)
+(require '[clj-time.local :as t])
 (use 'seesaw.core)
 (use 'clojure.repl)
 (native!)
-
-(defn tomato? [tomato] (before? (now) tomato))
 
 (def status (label :text "Idle"  :h-text-position :right))
 
@@ -15,7 +13,7 @@
   (sh "notify-send" (clojure.string/join
                      ["--icon=" (System/getProperty "user.dir") "/resources/tomato.png"])
       "Buzz!")
-  (text! status "Idle")
+  (text! status (str "Idle since " (t/format-local-time (t/local-now) :hour-minute)))
   )
 
 (defn wait[]
